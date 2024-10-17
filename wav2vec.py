@@ -1,3 +1,15 @@
+#PREPROCESSING
+import librosa
+import numpy as np
+audio='harvard.wav'
+y,sr=librosa.load(audio,sr=16000)#setiing sr=16000 resampling the audio to match the ASR model's audio
+y=librosa.util.normalise(y)#normalising the audio to bring amplitude consistency
+target_length=18*sr
+if(len(y)>target_length):
+  y=y[:target_length]#if audio is longer than target length slice it till target length
+else:
+  y=np.pad(y,(0,target_length-len(y)),mode='constant')#if audio less than 5 secs it gets padded with silence to reach 5 secs at the end of the file, constant tells padding is done with a constant value 0 by default
+
 import torch
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor #first one Wav2Vec 2.0 model class and 2nd one processor for preprocessing audio inputs and converting model outputs into human-readable text
 processor=Wav2Vec2Processor.from_pretrained('facebook/wav2vec2-base-960h')#loads the pre-trained Wav2Vec 2.0 processor from the specified model identifier on hugging face model hub (includes neccessary configurations to preprocess audio data)
