@@ -20,3 +20,9 @@ with torch.no_grad(): #pytorch wont track gradients (disabling gradient tracking
 predicted_ids=torch.argmax(logits,dim=-1) #sees logits and determines which token has highest score in each step(torch.argmax: returns index position of max values along a specific dim, predicted_ids will contain most likely token id for each step based on models prediction)
 transcription=processor.batch_decode(predicted_ids)[0] #converts the token id to human readable text. [0] to get first (since only one audio)and only transcription from the list
 print("Transactions: ",transcription)
+
+#calculating wer
+import jiwer
+reference="The stale smell of old beer lingers. It takes heat to bring out the odor. A cold dip restores health and zest.A salt pickle tastes fine with ham. Tacos al pastor are my favorite. A zestful food is the hot cross bun."
+wer=jiwer.wer(reference,transcription)
+print(f"Word Error Rate: {wer:.2f}") #0.98
