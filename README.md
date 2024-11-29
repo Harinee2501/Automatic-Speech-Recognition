@@ -48,7 +48,8 @@ Whisper:
 Used OpenAI's Whisper model for transcription.
 Handled raw audio effectively without extensive preprocessing.
 Achieved low WER (0.05), even with noisy inputs.
-🛠 Tech Stack
+
+## **🛠 Tech Stack**
 Libraries and Tools:
 Librosa: Audio processing and feature extraction.
 Matplotlib: Visualization of audio signals, spectrograms, and MFCCs.
